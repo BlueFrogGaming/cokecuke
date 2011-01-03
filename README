@@ -1,2 +1,46 @@
 
-This is support for testing Cocos2d games with iCuke.
+CokeCuke
+========
+
+This project contains support for acceptance testing Cocos2D iPhone games with
+iCuke.
+
+Overview
+--------
+
+iCuke uses the UIKit accessibility features to scrape the contents of the
+screen so that Cucumber steps may be written that interacts with a program
+running in the iPhone simulator.  Unfortunately, Cocos2D is not based on
+UIKit, and so Cocos2D objects (CCNodes) aren't available to iCuke.
+
+The categories provided here allow iCuke to be used unmodified by providing
+some help to it at run time.  To do this, we mimic a little bit of UIKit-like
+functionality and point the way to our scene graph.  There shouldn't be any
+problem shipping these categories in production - they won't be used unless
+the app is run under the simulator with iCuke's preloaded library, and it
+is not a lot of code.
+
+Installation
+------------
+
+Copy the headers and Objective-C files from this directory into your project.
+
+Node Labels
+-----------
+
+CCNodes do not have anything equivalent to a label by default, so you should
+call [node setAccessibilityLabel:@"zombie"].  This allows you to say 'Given I
+tap "zombie"' in the cucumber feature.
+
+You can alternately override -accessibilityLabel when subclassing CCNode.
+
+Node Values
+-----------
+
+iCuke uses the value returned by -accessibilityValue as a control's value.  You
+can set this value with -setAccessibilityValue:.
+
+Nodes implementing CCTextLabelProtocol will have their accessibilityValue track
+the textual contents of the label unless the value is overridden with
+-setAccessibilityValue:.
+
