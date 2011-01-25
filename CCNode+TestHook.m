@@ -4,10 +4,9 @@
 
 - (void)appendFrameToXml:(NSMutableString *)xml {
 	// Convert node space to world space
-	CGRect frame = CGRectMake(0, 0, self.contentSizeInPixels.width, self.contentSizeInPixels.height);
+	CGRect frame = CGRectMake(0, 0, self.contentSize.width, self.contentSize.height);
 	CGAffineTransform t = [self nodeToWorldTransform];
 	frame = CGRectApplyAffineTransform(frame, t);
-	frame = CC_RECT_PIXELS_TO_POINTS(frame);
 	
 	// Convert world space (GL) to UI space (within the EAGLView)
 	CGPoint a = [[CCDirector sharedDirector] convertToUI:frame.origin];
